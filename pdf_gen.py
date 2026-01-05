@@ -166,7 +166,7 @@ def generate_pdf(df: pd.DataFrame, slot_map: dict, output_file="timetable.pdf"):
                 if not slot_found_flags[idx]:  # slot not found
                     pdf.set_fill_color(50, 50, 50)  # grey
                 elif "lab" in cell_text_lower:  # LAB slot
-                    pdf.set_fill_color(0, 255, 0)  # dark green
+                    pdf.set_fill_color(0, 120, 0)  # dark green
                 else:  # non-LAB slot
                     pdf.set_fill_color(50, 50, 255)  # blue
 
