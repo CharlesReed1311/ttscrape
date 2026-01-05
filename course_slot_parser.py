@@ -12,8 +12,8 @@ def parse_course_slot_table(html: str) -> Dict[str, str]:
 
     Output example:
     {
-        "B": "Molecular Biology (B103)",
-        "P1": "Molecular Biology Laboratory LAB (Molecular Biology Lab)"
+        "B": "Molecular Biology",
+        "P1": "Molecular Biology Laboratory LAB"
     }
     """
 
