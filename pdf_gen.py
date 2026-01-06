@@ -168,7 +168,7 @@ def generate_pdf(df: pd.DataFrame, slot_map: dict, output_file="timetable.pdf"):
                 elif "lab" in cell_text_lower:  # LAB slot
                     pdf.set_fill_color(0, 120, 0)  # dark green
                 else:  # non-LAB slot
-                    pdf.set_fill_color(50, 50, 255)  # blue
+                    pdf.set_fill_color(55, 55, 255)  # blue
 
             # Draw border + fill
             pdf.set_draw_color(255, 255, 255)
