@@ -99,15 +99,33 @@ slot_map = parse_course_slot_table(html)
 # STEP 5: Extract batch number
 # --------------------------------------------------
 soup = BeautifulSoup(html, "html.parser")
+
 batch_number = None
 
 for tr in soup.find_all("tr"):
     tds = tr.find_all("td")
-    if len(tds) >= 2 and tds[0].get_text(strip=True) == "Combo / Batch:":
+    if len(tds) < 2:
+        continue
+
+    label = tds[0].get_text(strip=True)
+
+    # -------- OLD FORMAT --------
+    # Combo / Batch: CSE / 2
+    if label == "Combo / Batch:":
         text = tds[1].get_text(strip=True)
-        if "/" in text:
-            batch_number = text.split("/")[-1]
-        break
+        match = re.search(r"\b(1|2)\b", text)
+        if match:
+            batch_number = match.group(1)
+            break
+
+    # -------- NEW FORMAT --------
+    # <td>Batch:</td><td>2</td>
+    if label == "Batch:":
+        text = tds[1].get_text(strip=True)
+        match = re.search(r"\b(1|2)\b", text)
+        if match:
+            batch_number = match.group(1)
+            break
 
 if batch_number not in {"1", "2"}:
     raise RuntimeError("❌ Failed to detect batch number")

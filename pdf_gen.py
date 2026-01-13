@@ -161,15 +161,18 @@ def generate_pdf(df: pd.DataFrame, slot_map: dict, output_file="timetable.pdf"):
             # Set fill color
             if idx == 0:
                 pdf.set_fill_color(0, 0, 0)  # keep Day/Time black
+                pdf.set_text_color(255, 255, 255)
             else:
                 cell_text_lower = mapped_row[idx].lower()
                 if not slot_found_flags[idx]:  # slot not found
                     pdf.set_fill_color(50, 50, 50)  # grey
                 elif "lab" in cell_text_lower:  # LAB slot
                     pdf.set_fill_color(0, 120, 0)  # dark green
+                    pdf.set_text_color(255, 255, 255)
                 else:  # non-LAB slot
-                    pdf.set_fill_color(55, 55, 255)  # blue
-
+                    pdf.set_text_color(0, 0, 0)
+                    pdf.set_fill_color(230, 190, 90) # light yellow
+                     
             # Draw border + fill
             pdf.set_draw_color(255, 255, 255)
             pdf.rect(x_start, y_start, width, max_row_height, style="DF")
