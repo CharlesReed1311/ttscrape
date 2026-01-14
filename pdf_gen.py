@@ -102,7 +102,6 @@ def generate_pdf(df: pd.DataFrame, slot_map: dict, output_file="timetable.pdf"):
     # ----------------------------
     # Data rows
     # ----------------------------
-    pdf.set_font("CustomFont", "", 14)
     pdf.set_draw_color(255, 255, 255)
 
     for _, row in df.iterrows():
@@ -170,8 +169,8 @@ def generate_pdf(df: pd.DataFrame, slot_map: dict, output_file="timetable.pdf"):
                     pdf.set_fill_color(0, 120, 0)  # dark green
                     pdf.set_text_color(255, 255, 255)
                 else:  # non-LAB slot
-                    pdf.set_text_color(0, 0, 0)
-                    pdf.set_fill_color(230, 190, 90) # light yellow
+                    pdf.set_text_color(255, 255, 255)
+                    pdf.set_fill_color(65, 0, 120) # light yellow
                      
             # Draw border + fill
             pdf.set_draw_color(255, 255, 255)
@@ -179,7 +178,12 @@ def generate_pdf(df: pd.DataFrame, slot_map: dict, output_file="timetable.pdf"):
 
             # Draw text
             pdf.set_xy(x_start, y_text)
-            pdf.multi_cell(width, LINE_HEIGHT, "\n".join(lines), border=0, align="C")
+            if idx == 0:
+                pdf.set_font("CustomFont", "B", 14)
+                pdf.multi_cell(width, LINE_HEIGHT, "\n".join(lines), border=0, align="C")
+            else:
+                pdf.set_font("CustomFont", "", 14)
+                pdf.multi_cell(width, LINE_HEIGHT, "\n".join(lines), border=0, align="C")
 
             x_start += width
 
